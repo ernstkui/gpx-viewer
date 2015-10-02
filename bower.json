@@ -1,0 +1,20 @@
+{
+  "name": "gpx-viewer",
+  "version": "0.0.0",
+  "authors": [
+    "ernstkui <ernst.kuilder@nelen-schuurmans.nl>"
+  ],
+  "description": "Simple gpx viewer",
+  "main": "index.html",
+  "keywords": [
+    "gpx"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

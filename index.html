@@ -5,10 +5,20 @@
 </head>
 <body>
 
+  <div id="map"></div>
+
+<style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
   <input type="file" id="your-files" multiple>
 
-  <script type="text/javascript" src="bower_components/leaflet/dist/leaflet-src.js"></script>
-  <script src='omnivore.js'></script>
 
   <script>
     var map;
@@ -21,22 +31,23 @@
           files = control.files,
           len = files.length;
 
-      for (; i < len; i++) {
-          console.log("Filename: " + files[i].name);
-          console.log("Type: " + files[i].type);
-          console.log("Size: " + files[i].size + " bytes");
-      }
+      var readAndCreate = function (file) {
+        var reader = new FileReader();
+        reader.readAsText(file);
 
-
-      var reader = new FileReader();
-
-      reader.onload = function(e) {
-        var text = reader.result;
-        console.log(typeof(text));
-        omnivore.gpx.parse(text).addTo(map);
+        reader.onload = function(e) {
+          var text = reader.result;
+          console.log(text);
+          omnivore.gpx.parse(text).addTo(map);
+        };
       };
 
-      reader.readAsText(files[0]);
+      for (; i < len; i++) {
+        console.log("Filename: " + files[i].name);
+        console.log("Type: " + files[i].type);
+        console.log("Size: " + files[i].size + " bytes");
+        readAndCreate(files[i]);
+      }
 
     }, false);
 
@@ -49,9 +60,7 @@
     };
 
   </script>
-
-    <div id="map" style="width: 4
-    00px; height: 400px;"></div>
-
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+  <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
 </body>
 </html>
